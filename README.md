@@ -1,5 +1,12 @@
 # Vue.js Atlas KFD API Client
 
-![Api Client](https://i.imgur.com/wqhoW36.gif)
+GIF: https://i.imgur.com/wqhoW36.gif
 
 This is very base version for presentation live-coding.
+Client for API: https://github.com/witek1902/atlas-kfd-api
+
+## Build and run
+`````
+npm install
+npm run dev
+`````
