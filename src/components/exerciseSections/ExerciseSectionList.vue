@@ -1,20 +1,22 @@
 <template>
-    <ul v-if="sections && sections.length">
+    <div v-if="sections && sections.length">
 
-      <li v-for="section in sections" :key="section.id">
-        
-        <router-link :to="{ name: 'ExerciseSectionDetails', params: {sectionId: section.id }}">
-          <p>{{ section.title }}</p>
-          <img :src="section.image" />
-        </router-link>
-      
-      </li>
-  
-  </ul>
+    <el-row>
+      <el-col :span="8" v-for="section in sections" :key="section.id">
+        <el-card class="exercise-card">
+          <router-link class="section-title" :to="{ name: 'ExerciseSectionDetails', params: {sectionId: section.id }}">
+            <p>{{ section.title }}</p>
+            <img class="section-image" :src="section.image" />
+          </router-link>
+        </el-card>
+      </el-col>
+    </el-row>
+
+  </div>
 </template>
 
 <script>
-import {HTTP} from '../http/api-client';
+import {HTTP} from '../http/ApiClient';
 
 export default {
   name: 'ExerciseSectionList',
@@ -26,7 +28,6 @@ export default {
   created() {
     HTTP.get('sections')
     .then(response => {
-      console.log(response)
       this.sections = response.data
     })
   }
@@ -34,13 +35,19 @@ export default {
 </script>
 
 <style scoped>
-  img {
-    max-width: 200px;
-  }
-  
-  li {
-    border: 1px #42b983 solid;
-    margin: 5px;
-    padding: 5px;
-  }
+.section-title {
+  font-size: 1.3em;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.section-image {
+  max-width: 300px;
+}
+
+.exercise-card {
+  border: 1px #18a3d4 solid;
+  margin: 5px;
+  padding: 5px;
+}
 </style>

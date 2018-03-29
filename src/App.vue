@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <nav class="main-nav">
-      <router-link to="/">Home</router-link>
-      <router-link to="/exerciseSections">Exercise sections</router-link>
+      <router-link to="/">Strona główna</router-link>
+      <router-link to="/exerciseSections">Sekcje</router-link>
+      <router-link to="/admin">Admin Panel</router-link>
     </nav>
     <div id="app-container">
       <router-view/>
@@ -48,11 +49,11 @@ li {
 }
 
 a {
-  color: #42b983;
+  color: #18a3d4;
 }
 
 .main-nav {
-  background-color:#42b983;
+  background-color: #18a3d4;
   padding: 10px;
   height: 20px;
 }

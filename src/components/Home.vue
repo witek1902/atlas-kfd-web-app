@@ -1,18 +1,17 @@
 <template>
   <div>
-    <h1>{{ title }}</h1>
+    <h1>{{ title }} <el-button type="primary" @click="changeTitle">Zmień tytuł</el-button></h1>
     <img src="../assets/logo-kfd.png" />
-    <el-button type="primary" @click="changeTitle">Change title</el-button>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Home ',
+  name: 'Home',
   data () {
     return {
-      title: 'Inżynierskie Targi Pracy - Atlas ćwiczeń',
-      anotherTitle: 'Atlas ćwiczeń'
+      title: 'Atlas ćwiczeń KFD.PL',
+      anotherTitle: 'Najlepsza aplikacja na świecie'
     }
   },
   methods: {

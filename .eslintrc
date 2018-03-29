@@ -1,5 +1,4 @@
 {
-  "esversion": 6,
   "extends": [
     "eslint:recommended",
     "plugin:vue/recommended"
