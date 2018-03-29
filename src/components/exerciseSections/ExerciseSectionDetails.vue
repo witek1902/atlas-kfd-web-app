@@ -58,10 +58,8 @@ export default {
       if (!this.details || !this.details.exercises) return [];
 
       return this.details.exercises.filter(e => {
-        let inCodeExists =
-          e.code.toLowerCase().indexOf(this.searchQuery.toLowerCase()) !== -1;
-        let inTitleExists =
-          e.title.toLowerCase().indexOf(this.searchQuery.toLowerCase()) !== -1;
+        let inCodeExists = e.code.toLowerCase().indexOf(this.searchQuery.toLowerCase()) !== -1;
+        let inTitleExists = e.title.toLowerCase().indexOf(this.searchQuery.toLowerCase()) !== -1;
         return inCodeExists || inTitleExists;
       });
     }
