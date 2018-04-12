@@ -64,4 +64,12 @@ export default {
     width: 70%;
     margin: 0 auto;
   }
+
+  @media screen and (max-width: 992px) {
+  .exercise-details-container {
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
 </style>
