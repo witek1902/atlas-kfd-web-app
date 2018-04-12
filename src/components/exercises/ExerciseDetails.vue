@@ -11,13 +11,13 @@
         <p>{{ details.auxiliaryMuscles }}</p>
         <h3>Stabilizatory</h3>
         <p>{{ details.stabilizers }}</p>
-        <img :src="details.muscleImageUrl" alt="Zdjęcie pracujących mięśni" />
+        <img class="muscle-image" :src="details.muscleImageUrl" alt="Zdjęcie pracujących mięśni" />
       </el-tab-pane>
       
       <el-tab-pane label="Zdjęcia" name="images">
         <el-carousel :interval="2000" height="400px">
           <el-carousel-item v-for="image in details.imageUrls" :key="image">
-            <img :src="image" />
+            <img class="muscle-image" :src="image" />
           </el-carousel-item>
         </el-carousel>
       </el-tab-pane>
@@ -30,46 +30,60 @@
       </el-tab-pane>
       
       <el-tab-pane label="Wideo" name="video">
-        <iframe width="80%" height="600" :src="details.embedVideoUrl"></iframe>
+        <div class="video">
+          <iframe width="80%" height="100%" :src="details.embedVideoUrl"></iframe>
+        </div>
       </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 
 <script>
-import {HTTP} from '../http/ApiClient';
+import { HTTP } from "../http/ApiClient";
 
 export default {
-  name: 'ExerciseDetails',
+  name: "ExerciseDetails",
   props: {
-      exerciseId: Number
+    exerciseId: Number
   },
-  data () {
+  data() {
     return {
-      activeTab: 'main',
+      activeTab: "main",
       details: {}
-    }
+    };
   },
   created() {
-    HTTP.get('exercises/' + this.exerciseId)
-    .then(response => {
-      this.details = response.data
-    })
+    HTTP.get("exercises/" + this.exerciseId).then(response => {
+      this.details = response.data;
+    });
   }
-}
+};
 </script>
 
 <style scoped>
-  .exercise-details-container {
-    width: 70%;
-    margin: 0 auto;
-  }
+.exercise-details-container {
+  width: 70%;
+  margin: 0 auto;
+}
 
-  @media screen and (max-width: 992px) {
+@media screen and (max-width: 992px) {
+  .muscle-image {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 992px) {
   .exercise-details-container {
     width: 100%;
     margin: 0 auto;
   }
+
+  .video {
+    height: 300px;
+  }
 }
 
+.video {
+  height: 600px;
+}
 </style>

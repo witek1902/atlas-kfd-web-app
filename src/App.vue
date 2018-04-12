@@ -3,7 +3,6 @@
     <nav class="main-nav">
       <router-link to="/">Strona główna</router-link>
       <router-link to="/exerciseSections">Sekcje</router-link>
-      <router-link to="/admin">Admin Panel</router-link>
     </nav>
     <div id="app-container">
       <router-view/>

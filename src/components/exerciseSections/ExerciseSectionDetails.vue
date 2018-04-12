@@ -2,12 +2,12 @@
   <div>
     <h1>{{ details.title }} - lista ćwiczeń</h1>
     <div class="search-container">
-        <el-input placeholder="Search by code or title..." v-model="searchQuery"></el-input>
+        <el-input placeholder="Wyszukaj po kodzie lub tytule..." v-model="searchQuery"></el-input>
     </div>
     
     <div v-if="filteredExercises && filteredExercises.length && filteredExercises.length > 0">
         <el-row>
-            <el-col :span="8" v-for="exercise in filteredExercises" :key="exercise.id">
+            <el-col :span="4" :md="8" :xl="4" :xs="12" v-for="exercise in filteredExercises" :key="exercise.id">
                 <el-card class="exercise-container">
                     <router-link :to="{ name: 'ExerciseDetails', params: { exerciseId: exercise.id } }">
                         <img 
@@ -19,14 +19,6 @@
                             <span>[{{ exercise.code }}] {{ exercise.title }}</span>
                         </div>
                     </router-link>
-                    <div class="bottom clearfix">
-                        <el-button 
-                            size="small"
-                            type="primary"
-                            icon="el-icon-delete" 
-                            @click="removeFromSection(exercise.id)"
-                        />
-                    </div>
                 </el-card>
             </el-col>
         </el-row>
@@ -65,24 +57,6 @@ export default {
     }
   },
   methods: {
-    removeFromSection(exerciseId) {
-      HTTP.delete("sections/" + this.sectionId + "/exercises/" + exerciseId)
-        .then(response => {
-          this.$notify({
-            title: "Success",
-            message: "Adding new Exercise to Section successfully!",
-            type: "success"
-          });
-          this.getSections();
-        })
-        .catch(error => {
-          this.$notify({
-            title: "Validation error",
-            message: error.response.data,
-            type: "error"
-          });
-        });
-    },
     getSections() {
       HTTP.get("sections/" + this.sectionId).then(response => {
         this.details = response.data;
@@ -96,6 +70,13 @@ export default {
 <style scoped>
 .exercise-container {
     margin: 10px;
+    height: 300px;
+}
+
+@media screen and (max-width: 768px) {
+  .exercise-container {
+    height: 310px;
+  }
 }
 
 .muscle-image {
@@ -108,7 +89,8 @@ export default {
 }
 
 .exercise-title {
-    padding: 15px;
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
 
 .search-container {

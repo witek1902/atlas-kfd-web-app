@@ -5,7 +5,6 @@ import Home from '@/components/Home';
 import ExerciseSectionList from '@/components/exerciseSections/ExerciseSectionList';
 import ExerciseSectionDetails from '@/components/exerciseSections/ExerciseSectionDetails';
 import ExerciseDetails from '@/components/exercises/ExerciseDetails';
-import AdminPanel from '@/components/admin/AdminPanel';
 
 Vue.use(Router);
 
@@ -32,11 +31,6 @@ export default new Router({
       name: 'ExerciseDetails',
       component: ExerciseDetails,
       props: true
-    },
-    {
-      path: '/admin',
-      name: 'AdminPanel',
-      component: AdminPanel
     }
   ]
 });
