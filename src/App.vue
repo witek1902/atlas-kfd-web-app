@@ -1,19 +1,18 @@
 <template>
   <div id="app">
-    <nav class="main-nav">
-      <router-link to="/">Strona główna</router-link>
-      <router-link to="/exerciseSections">Sekcje</router-link>
+    <nav>
+      <router-link to="/">Home</router-link>
+      <router-link to="/sections">Exercise sections</router-link>
+      <router-link to="/admin">Admin</router-link>
     </nav>
-    <div id="app-container">
-      <router-view/>
-    </div>
+    <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
-}
+  name: 'App',
+};
 </script>
 
 <style>
@@ -27,10 +26,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-#app-container {
-  margin-top: 10px;
 }
 
 h1, h2 {
@@ -48,18 +43,19 @@ li {
 }
 
 a {
-  color: #18a3d4;
+  color: #42b983;
 }
 
-.main-nav {
-  background-color: #18a3d4;
+nav {
+  background-color: #42b983;
   padding: 10px;
   height: 20px;
+  margin-bottom: 20px;
 }
 
-.main-nav > a {
-  color: white;
+nav > a {
   text-decoration: none;
+  color: white;
   margin-right: 20px;
 }
 </style>
