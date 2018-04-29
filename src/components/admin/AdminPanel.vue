@@ -48,80 +48,57 @@
 </template>
 
 <script>
-import { HTTP } from "../http/ApiClient";
-
+import { mapGetters, mapActions} from 'vuex'
+import { BUS } from '../../bus/EventBus'
 export default {
-  name: "AdminPanel",
+  name: 'AdminPanel',
   data() {
     return {
       loadingSections: false,
-      sections: [],
-      exercises: [],
       newSectionForm: {
-        title: "",
-        image: ""
+        title: '',
+        image: ''
       },
       addExerciseToSectionForm: {
-        exerciseId: "",
-        exerciseSectionId: ""
+        exerciseId: '',
+        exerciseSectionId: ''
       }
-    };
+    }
   },
-  created() {
-    HTTP.get("sections").then(response => {
-      this.sections = response.data;
-    });
-    HTTP.get("exercises").then(response => {
-      this.exercises = response.data;
-    });
+  created () {
+    this.fetchSectionList()
+    this.fetchExerciseList()
+    BUS.$on('clean-add-exercise-form', e => {
+      this.addExerciseToSectionForm.exerciseId = ''
+      this.addExerciseToSectionForm.exerciseSectionId = ''
+    })
+    BUS.$on('clean-add-section-form', e => {
+      this.newSectionForm.title = ''
+      this.newSectionForm.image = ''
+    })
+  },
+  computed: {
+    ...mapGetters([
+      'sections',
+      'exercises'
+    ])
   },
   methods: {
+    ...mapActions([
+      'fetchSectionList',
+      'fetchExerciseList',
+      'addExerciseToSection',
+      'addSection'
+    ]),
     onSubmitNewSection() {
-      HTTP.post("sections", {
-        title: this.newSectionForm.title,
-        image: this.newSectionForm.image
-      }).then(response => {
-        this.newSectionForm.title = "";
-        this.newSectionForm.image = "";
-
-        this.$notify({
-          title: "Success",
-          message: "Saving new Section successfully!",
-          type: "success"
-        });
-      });
+      this.addSection(this.newSectionForm)
     },
     onSubmitAddExercise() {
-      HTTP.post(
-        "sections/" +
-          this.addExerciseToSectionForm.exerciseSectionId +
-          "/exercises",
-        {
-          exerciseId: this.addExerciseToSectionForm.exerciseId
-        }
-      )
-      .then(response => {
-        this.addExerciseToSectionForm.exerciseId = "";
-        this.addExerciseToSectionForm.exerciseSectionId = "";
-
-        this.$notify({
-          title: "Success",
-          message: "Adding new Exercise to Section successfully!",
-          type: "success"
-        });
-      })
-      .catch(error => {
-        this.$notify({
-          title: "Validation error",
-          message: error.response.data,
-          type: "error"
-        });
-      });
+      this.addExerciseToSection(this.addExerciseToSectionForm)
     }
   }
-};
+}
 </script>
-
 
 <style scoped>
 .form-container {
