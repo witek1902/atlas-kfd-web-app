@@ -1,5 +1,5 @@
 <template>
-    <div v-if="sections && sections.length">
+    <div v-if="sections && sections.length > 0">
 
     <el-row>
       <el-col :span="8" :xs="12" v-for="section in sections" :key="section.id">
@@ -16,21 +16,31 @@
 </template>
 
 <script>
-import { HTTP } from "../http/ApiClient";
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  name: "ExerciseSectionList",
-  data() {
-    return {
-      sections: []
-    };
+  name: 'ExerciseSectionList',
+  computed: {
+    ...mapGetters([
+      'sections'
+    ])
+  },
+  methods: {
+    ...mapActions([
+      'fetchSectionList'
+    ])
+  },
+  watch: {
+    sections (newVal) {
+      if(newVal === undefined) {
+        this.fetchSectionList()
+      }
+    }
   },
   created() {
-    HTTP.get("sections").then(response => {
-      this.sections = response.data;
-    });
+    this.fetchSectionList()
   }
-};
+}
 </script>
 
 <style scoped>

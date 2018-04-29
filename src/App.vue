@@ -12,8 +12,14 @@
 </template>
 
 <script>
+import { BUS } from '../src/bus/EventBus'
 export default {
-  name: 'App'
+  name: 'App',
+  created () {
+    BUS.$on('show-notify', notify => {
+      this.$notify(notify)
+    })
+  }
 }
 </script>
 
