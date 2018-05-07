@@ -1,5 +1,7 @@
 <template>
   <div>
+    <section id="section-details" v-if="details">
+
     <h1>{{ details.title }} - lista ćwiczeń</h1>
     <div class="search-container">
         <el-input placeholder="Search by code or title..." v-model="searchQuery"></el-input>
@@ -33,66 +35,67 @@
     </div>
     
     <div class="not-found" v-else>No exercises found.</div>
+
+    </section>
   </div>
 </template>
 
 <script>
-import { HTTP } from "../http/ApiClient";
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
-  name: "ExerciseSectionDetails",
+  name: 'ExerciseSectionDetails',
   props: {
-    sectionId: String
+    sectionId: {
+      required: true
+    }
   },
   data() {
     return {
-      searchQuery: "",
-      details: {}
-    };
+      searchQuery: ''
+    }
   },
   created() {
-    this.getSections();
+    this.fetchSection(this.sectionId)
   },
   computed: {
+    ...mapGetters([
+      'activeSection'
+    ]),
+    details () {
+      return this.activeSection
+    },
     filteredExercises() {
       if (!this.details || !this.details.exercises) return [];
-
+      
+      function containsText (text, searchedText) {
+        return text.toLowerCase().indexOf(searchedText.toLowerCase()) !== -1
+      }
+      
       return this.details.exercises.filter(e => {
-        let inCodeExists = e.code.toLowerCase().indexOf(this.searchQuery.toLowerCase()) !== -1;
-        let inTitleExists = e.title.toLowerCase().indexOf(this.searchQuery.toLowerCase()) !== -1;
-        return inCodeExists || inTitleExists;
-      });
+        return containsText(e.code, this.searchQuery) || containsText(e.title, this.searchQuery)
+      })
     }
   },
   methods: {
-    removeFromSection(exerciseId) {
-      HTTP.delete("sections/" + this.sectionId + "/exercises/" + exerciseId)
-        .then(response => {
-          this.$notify({
-            title: "Success",
-            message: "Adding new Exercise to Section successfully!",
-            type: "success"
-          });
-          this.getSections();
-        })
-        .catch(error => {
-          this.$notify({
-            title: "Validation error",
-            message: error.response.data,
-            type: "error"
-          });
-        });
-    },
-    getSections() {
-      HTTP.get("sections/" + this.sectionId).then(response => {
-        this.details = response.data;
-      });
+    ...mapActions([
+      'fetchSection',
+      'deleteExercise'
+    ]),
+    removeFromSection (exerciseId) {
+      this.deleteExercise({sectionId: this.activeSection, exerciseId: exerciseId})
+    }
+  },
+  watch: {
+    activeSection (newVal) {
+        if (newVal === undefined) {
+            this.fetchSection(this.sectionId)
+        }
     }
   }
-};
+}
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .exercise-container {
     margin: 10px;
