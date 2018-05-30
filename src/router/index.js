@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from '@/components/Home';
 
 import ExerciseSectionList from '@/components/exerciseSections/ExerciseSectionList';
 import ExerciseSectionDetails from '@/components/exerciseSections/ExerciseSectionDetails';
@@ -12,11 +11,6 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home
-    },
-    {
-      path: '/exerciseSections',
       name: 'ExerciseSectionList',
       component: ExerciseSectionList
     },
