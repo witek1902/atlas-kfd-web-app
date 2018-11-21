@@ -1,8 +1,6 @@
 # Vue.js Atlas KFD API Client
 
-<p align="center">
-    <img alt="Atlas ćwiczeń KFD.PL GIF" src="https://i.imgur.com/HiDiSvF.gif" />
-</p>
+(GIF HERE)[https://github.com/witek1902/atlas-kfd-web-app/blob/master/readme-images/HiDiSvF.gif]
 
 This is very base version for presentation live-coding.
 Client for API: https://github.com/witek1902/atlas-kfd-api
